@@ -1,11 +1,11 @@
 --this is the tables file for Quiz 1
-DROP TABLE IF EXISTS bank;
+DROP TABLE IF EXISTS employees;
 
 CREATE TABLE employees (
     employee_id serial PRIMARY KEY,
     name text NOT NULL,
     job text NOT NULL,
-    salary int NOT NULL,
+    salary int NOT NULL
 );
 
 INSERT INTO employees (name, job, salary)
@@ -24,9 +24,9 @@ INSERT INTO employees (name, job, salary)
 VALUES ('Elena', 'President', '4500');
 
 --queries section
-SELECT TOP 5 *
+SELECT *
 FROM employees;
 
-SELECT name
+SELECT *
 FROM employees
 ORDER BY name DESC;
