@@ -1,3 +1,14 @@
 {
-    "github.gitProtocol": "ssh"
+    "github.gitProtocol": "ssh",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "bank",
+            "database": "bank",
+            "username": "bank"
+        }
+    ]
 }
