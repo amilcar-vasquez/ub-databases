@@ -8,20 +8,13 @@ CREATE TABLE employees (
     salary int NOT NULL
 );
 
+-- inserting of data - fixed insert into one statement
 INSERT INTO employees (name, job, salary)
-VALUES ('Amilcar', 'Trainer', '2000');
-
-INSERT INTO employees (name, job, salary)
-VALUES ('Jimmy', 'Teller', '1500');
-
-INSERT INTO employees (name, job, salary)
-VALUES ('Mary', 'Cleaner', '1000');
-
-INSERT INTO employees (name, job, salary)
-VALUES ('Keiran', 'CEO', '5000');
-
-INSERT INTO employees (name, job, salary)
-VALUES ('Elena', 'President', '4500');
+VALUES ('Amilcar', 'Trainer', '2000'),
+('Jimmy', 'Teller', '1500'),
+('Mary', 'Cleaner', '1000'),
+('Keiran', 'CEO', '5000'),
+('Elena', 'President', '4500');
 
 --queries section
 SELECT *
