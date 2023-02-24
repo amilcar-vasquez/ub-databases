@@ -1,7 +1,9 @@
 --CREATE DATABASE music;
 
 --tables
-DROP TABLE IF EXISTS albums, tracks;
+DROP TABLE IF EXISTS albums;
+DROP TABLE IF EXISTS tracks;
+DROP TABLE IF EXISTS albums_tracks;
 
 CREATE TABLE albums(
     id serial PRIMARY KEY,
