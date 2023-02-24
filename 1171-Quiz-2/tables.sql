@@ -1,4 +1,4 @@
--- CREATE DATABASE music;
+--CREATE DATABASE music;
 
 --tables
 DROP TABLE IF EXISTS albums, tracks;
@@ -69,4 +69,32 @@ ON A.id = AT.album_id
 INNER JOIN tracks AS T
 ON AT.track_id = T.id;
 
---show 
+--show the album or albums that each track belongs to
+
+SELECT T.title AS track_name, T.length AS track_length, A.title AS released_on_album
+FROM tracks as T
+INNER JOIN albums_tracks AS AT
+ON T.id = AT.track_id
+INNER JOIN albums AS A
+ON AT.album_id = A.id;
+
+--count the number of tracks in each album
+
+SELECT A.title AS album_name, COUNT(T.id) AS number_of_tracks
+FROM albums as A
+FULL JOIN albums_tracks AS AT
+ON A.id = AT.album_id
+JOIN tracks AS T
+ON T.id = AT.track_id
+GROUP BY A.id;
+
+--in how many albums does a particular track appear?
+
+SELECT T.title AS track_name, COUNT(A.id) AS album_count
+FROM albums AS A
+JOIN albums_tracks AS AT
+ON A.id = AT.album_id
+JOIN tracks AS T
+ON T.id = AT.track_id
+WHERE T.title = 'esfuerzate'
+GROUP BY T.id;
