@@ -13,8 +13,9 @@ CREATE TABLE faculties(
 
 CREATE TABLE programs (
   program_id CHAR(4) PRIMARY KEY,
-  faculty_id VARCHAR(4),
+  faculty_id VARCHAR(4) NOT NULL,
   program_name VARCHAR(50) NOT NULL,
+  program_location VARCHAR(50) NOT NULL,
   program_description TEXT NOT NULL,
   FOREIGN KEY (faculty_id)
     REFERENCES faculties (faculty_id)
@@ -25,7 +26,8 @@ CREATE TABLE instructors (
   email VARCHAR (50) NOT NULL,
   instructor_name VARCHAR (50),
   office_location VARCHAR (50),
-  telephone CHAR (20)
+  telephone CHAR (20),
+  degree VARCHAR(5)
 );
 
 CREATE TABLE courses (
@@ -40,7 +42,7 @@ CREATE TABLE courses (
   modality_type VARCHAR(20) NOT NULL,
   instructor_id INT NOT NULL,
   class_venue	VARCHAR(100),
-  communicatioin_tool	VARCHAR(25),
+  communication_tool	VARCHAR(25),
   course_platform	VARCHAR(25),
   field_trips	VARCHAR(3) check(field_trips in ('Yes','No')),
   resources_required TEXT NOT NULL,
@@ -54,7 +56,6 @@ CREATE TABLE courses (
 );
   
 CREATE TABLE courses_programs (
-  course_programs_id INT PRIMARY KEY,
   course_id INT NOT NULL,
   program_id CHAR(4) NOT NULL,
   FOREIGN KEY (program_id)
@@ -63,9 +64,41 @@ CREATE TABLE courses_programs (
     REFERENCES courses (course_id)
 );
 
-CREATE TABLE pre_requisites (
-    prereq_id VARCHAR(24) PRIMARY KEY,
-    course_id INT NOT NULL,
-    FOREIGN KEY (course_id)
-        REFERENCES courses (course_id)
+CREATE TABLE pre_requisites(
+  course_id INT NOT NULL,
+  prereq_id VARCHAR(8) NOT NULL,
+  PRIMARY Key(prereq_id,course_id),
+  FOREIGN Key(course_id)
+   REFERENCES courses (course_id)
 );
+
+--importing data:
+COPY faculties
+FROM '/home/bntubenque/repos/ub-databases/1171-Project-1/csvs/faculties.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY programs
+FROM '/home/bntubenque/repos/ub-databases/1171-Project-1/csvs/programs.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY instructors
+FROM '/home/bntubenque/repos/ub-databases/1171-Project-1/csvs/instructors.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY courses
+FROM '/home/bntubenque/repos/ub-databases/1171-Project-1/csvs/courses.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY courses_programs
+FROM '/home/bntubenque/repos/ub-databases/1171-Project-1/csvs/courses_programs.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY pre_requisites
+FROM '/home/bntubenque/repos/ub-databases/1171-Project-1/csvs/pre_reqs.csv'
+DELIMITER ','
+CSV HEADER;
