@@ -22,11 +22,35 @@ SELECT instructor_id, instructor_name, degree
 FROM instructors
 WHERE degree = 'M.Sc.';
 
--- What are the prerequisites for Programming 2?
-SELECT C.course_id, C.code, C.title, P.prereq_id
+-- What are the prerequisites for Programming 2 (nested query gives the prerequisite course name)?
+SELECT C.course_id, C.code AS course_code, C.title AS course_name, P.prereq_id AS prereq_code, 
+       (SELECT C2.title FROM courses AS C2 WHERE C2.code = P.prereq_id) AS prerequisite_name
 FROM courses AS C
 JOIN pre_requisites AS P
 ON C.course_id = P.course_id
-WHERE C.title='Priciples of Programming 2';
+WHERE P.course_id = 3;
 
---List the program_name and code, year, semester section and title for all courses.
+--List the code, year, semester, section and title for all courses.
+SELECT code, year, semester, section, title
+FROM courses;
+
+--List the program_name and code, year, semester section and title for all courses in the AINT program.
+SELECT P.program_id, P.program_name, C.code, C.year, C.semester, C.section, C.title AS course_name
+FROM programs AS P
+JOIN courses_programs AS CP
+ON P.program_id = CP.program_id
+JOIN courses AS C
+ON CP.course_id = C.course_id 
+WHERE P.program_id = 'AINT';
+
+
+-- List the faculty_name and code, year, semester section and title for all courses offered by FST.
+SELECT F.faculty_id, F.faculty_name, C.year, C.semester, C.section, C.title AS course_name
+FROM faculties AS F
+JOIN programs AS P
+ON F.faculty_id = P.faculty_id
+JOIN courses_programs AS CP
+ON P.program_id = CP.program_id
+JOIN courses AS C
+ON CP.course_id = C.course_id
+WHERE F.faculty_id = 'FST';
