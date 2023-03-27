@@ -1,4 +1,10 @@
 -- 1.  Select all the students that came from Sacred Heart Junior College - school id 11
+SELECT S.student_id, S.gender, S.school_id, SC.school_name
+FROM student as S
+JOIN school as SC
+ON S.school_id = SC.school_id
+WHERE S.school_id = 11;
+
 -- 2.  Select all the students that graduated.
 -- 3.  How many students did not pass Programming 1?
 -- 4.  Which feeder schools are in the Cayo District?
