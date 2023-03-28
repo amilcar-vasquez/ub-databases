@@ -40,7 +40,6 @@ SELECT student_id, grad_date
 FROM completion
 WHERE grad_date LIKE '%2020';
 
-
 -- 8.  Show all the students that came from a school under the Nazarene management.
 SELECT S.student_id, SC.school_id, SC.school_name, SC.management
 FROM student AS S
@@ -48,14 +47,12 @@ JOIN school AS SC
 ON S.school_id = SC.school_id
 WHERE SC.management = 'Nazarene';
 
-
 -- 9.  Create a transcript of grades for student 4538.
 SELECT PS.student_id, PS.course_grade, PS.course_points, PS.semester, C.course_id, C.course_code, C.course_title
 FROM program_status AS PS
 JOIN course AS C
 ON PS.course_id = C.course_id
 WHERE PS.student_id = 4538;
-
 
 -- 10. list all the students whom originated from UB, and dropped a Database course.
 SELECT DISTINCT S.student_id, SC.school_id, SC.school_name, PS.program_status, C.course_id, C.course_title
