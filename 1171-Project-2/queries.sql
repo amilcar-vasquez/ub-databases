@@ -9,7 +9,7 @@ WHERE S.school_id = 11;
 SELECT *
 FROM completion;
 
--- 3.  How many students did not pass Principles of Programming II (course id 64)?
+-- 3.  Which students did not pass Principles of Programming II (course id 64)?
 SELECT DISTINCT PS.student_id, PS.course_grade, PS.course_points, PS.semester, C.course_id, C.course_title
 FROM program_status AS PS
 JOIN course AS C
@@ -69,5 +69,3 @@ ON PS.course_id = C.course_id
 WHERE PS.program_status = 'Dropped'
 AND C.course_title LIKE '%DATABASE%'
 AND SC.school_id = 13;
-
-
