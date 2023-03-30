@@ -66,3 +66,128 @@ ON PS.course_id = C.course_id
 WHERE PS.program_status = 'Dropped'
 AND C.course_title LIKE '%DATABASE%'
 AND SC.school_id = 13;
+
+-- Teacher Sent Queries
+
+-- I. Find the total number of students and average course points by feeder institutions.
+SELECT S.school_id, SC.school_name, AVG(student_avg_course_points) as avg_course_points, COUNT(*) as student_count
+FROM student AS S
+JOIN school AS SC ON S.school_id = SC.school_id
+JOIN (
+    SELECT student_id, AVG(course_points) as student_avg_course_points
+    FROM program_status
+    GROUP BY student_id
+) AS PS
+ON S.student_id = PS.student_id
+GROUP BY S.school_id, SC.school_name
+ORDER BY avg_course_points DESC;
+
+-- Find the total number of students and average course points by gender.
+SELECT gender, AVG(student_avg_course_points) as avg_course_points, COUNT(*) as student_count
+FROM (
+    SELECT S.gender, AVG(PS.course_points) as student_avg_course_points
+    FROM student AS S
+    JOIN program_status AS PS
+    ON S.student_id = PS.student_id
+    GROUP BY S.student_id
+) AS student_avg
+GROUP BY gender;
+
+--Find the total number of students and average course points by ethnicity.
+SELECT ethinicity, AVG(student_avg_course_points) as avg_course_points, COUNT(*) as student_count
+FROM (
+    SELECT S.ethinicity, AVG(PS.course_points) as student_avg_course_points
+    FROM student AS S
+    JOIN program_status AS PS
+    ON S.student_id = PS.student_id
+    GROUP BY S.student_id
+) AS student_avg
+GROUP BY ethinicity
+ORDER BY avg_course_points DESC;
+
+-- Find the total number of students and average course points by city.
+SELECT city, AVG(student_avg_course_points) as avg_course_points, COUNT(*) as student_count
+FROM (
+    SELECT S.city, AVG(PS.course_points) as student_avg_course_points
+    FROM student AS S
+    JOIN program_status AS PS
+    ON S.student_id = PS.student_id
+    GROUP BY S.student_id
+) AS student_avg
+GROUP BY city
+ORDER BY avg_course_points DESC;
+
+--Find the total number of students and average course points by district.
+SELECT district, AVG(student_avg_course_points) as avg_course_points, COUNT(*) as student_count
+FROM (
+    SELECT S.district, AVG(PS.course_points) as student_avg_course_points
+    FROM student AS S
+    JOIN program_status AS PS
+    ON S.student_id = PS.student_id
+    GROUP BY S.student_id
+) AS student_avg
+GROUP BY district
+ORDER BY avg_course_points DESC;
+
+--Find the total number and percentage of students by program status.
+SELECT program_status, COUNT(DISTINCT PS.student_id) as student_count,
+COUNT(DISTINCT PS.student_id)*100.0/(SELECT COUNT(DISTINCT student_id)
+FROM program_status) AS student_percent
+FROM program_status AS PS
+GROUP BY program_status;
+
+--Find the letter grade breakdown (how many A, A-,B,B+,...)for each of the following courses:
+--Fundamentals of Computing 
+--Principles of Programming I 
+--Algebra 
+--Trigonometry 
+--College English I 
+
+SELECT C.course_title, PS.course_grade, COUNT(*) as grade_count
+FROM program_status AS PS
+JOIN course AS C ON PS.course_id = C.course_id
+WHERE C.course_id = 11
+GROUP BY C.course_title, PS.course_grade
+ORDER BY C.course_title, grade_count DESC;
+
+SELECT C.course_title, PS.course_grade, COUNT(*) as grade_count
+FROM program_status AS PS
+JOIN course AS C ON PS.course_id = C.course_id
+WHERE C.course_id = 28
+GROUP BY C.course_title, PS.course_grade
+ORDER BY C.course_title, grade_count DESC;
+UNION -- this can be done to combine where say two courses are essentially the same but have separate data sets.
+SELECT C.course_title, PS.course_grade, COUNT(*) as grade_count
+FROM program_status AS PS
+JOIN course AS C ON PS.course_id = C.course_id
+WHERE C.course_id = 27
+GROUP BY C.course_title, PS.course_grade
+ORDER BY C.course_title, grade_count DESC;
+
+SELECT C.course_title, PS.course_grade, COUNT(*) as grade_count
+FROM program_status AS PS
+JOIN course AS C ON PS.course_id = C.course_id
+WHERE C.course_id = 3
+GROUP BY C.course_title, PS.course_grade
+ORDER BY C.course_title, grade_count DESC;
+
+SELECT C.course_title, PS.course_grade, COUNT(*) as grade_count
+FROM program_status AS PS
+JOIN course AS C ON PS.course_id = C.course_id
+WHERE C.course_id = 46
+GROUP BY C.course_title, PS.course_grade
+ORDER BY C.course_title, grade_count DESC;
+
+SELECT C.course_title, PS.course_grade, COUNT(*) as grade_count
+FROM program_status AS PS
+JOIN course AS C ON PS.course_id = C.course_id
+WHERE C.course_id = 44
+GROUP BY C.course_title, PS.course_grade
+ORDER BY C.course_title, grade_count DESC;
+
+SELECT C.course_title, PS.course_grade, COUNT(*) as grade_count
+FROM program_status AS PS
+JOIN course AS C ON PS.course_id = C.course_id
+WHERE C.course_id = 24
+GROUP BY C.course_title, PS.course_grade
+ORDER BY C.course_title, grade_count DESC;
