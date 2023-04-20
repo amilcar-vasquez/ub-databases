@@ -94,15 +94,15 @@ FROM (
 GROUP BY gender;
 
 --Find the total number of students and average course points by ethnicity.
-SELECT ethinicity, AVG(student_avg_course_points) as avg_course_points, COUNT(*) as student_count
+SELECT ethnicity, AVG(student_avg_course_points) as avg_course_points, COUNT(*) as student_count
 FROM (
-    SELECT S.ethinicity, AVG(PS.course_points) as student_avg_course_points
+    SELECT S.ethnicity, AVG(PS.course_points) as student_avg_course_points
     FROM student AS S
     JOIN program_status AS PS
     ON S.student_id = PS.student_id
     GROUP BY S.student_id
 ) AS student_avg
-GROUP BY ethinicity
+GROUP BY ethnicity
 ORDER BY avg_course_points DESC;
 
 -- Find the total number of students and average course points by city.
