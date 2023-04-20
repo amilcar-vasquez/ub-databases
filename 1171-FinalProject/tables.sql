@@ -60,7 +60,7 @@ CREATE TABLE student_program(
     student_program_id INT PRIMARY KEY,
     student_id INT NOT NULL,
     program_id INT NOT NULL,
-    program_status VARCHAR (10) NOT NULL,
+    program_status VARCHAR (15) NOT NULL,
     program_start CHAR (10),
     grad_date CHAR (10),
     program_end CHAR (10),
